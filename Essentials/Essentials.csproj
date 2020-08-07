@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="Frostspark.API">
+      <HintPath>..\..\..\..\.references\Frostspark.API.dll</HintPath>
+    </Reference>
     <Reference Include="Frostspark.Server">
       <HintPath>..\..\..\..\.references\Frostspark.Server.dll</HintPath>
     </Reference>

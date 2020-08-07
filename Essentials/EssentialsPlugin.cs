@@ -1,16 +1,20 @@
-﻿using System;
+﻿using Essentials.Commands;
+
+using System;
 using System.Runtime.CompilerServices;
 
 namespace Essentials
 {
-    public class EssentialsMain : Frostspark.API.Plugins.Plugin
+    public class EssentialsPlugin : Frostspark.API.Plugins.Plugin
     {
-        internal static EssentialsMain Instance { get; private set; }
+        internal static EssentialsPlugin Instance { get; private set; }
 
-        public EssentialsMain()
+        public EssentialsPlugin()
         {
             Instance = this;
         }
+
+        internal Frostspark.Server.Server NServer => (Frostspark.Server.Server)Server;
 
         public override string Name => "Essentials";
 
@@ -18,22 +22,22 @@ namespace Essentials
 
         public override void Disable()
         {
-
+            NServer.Commands.DeregisterCommand<WhoCommand>();
         }
 
         public override void Enable()
         {
-            
+            NServer.Commands.RegisterCommand<WhoCommand>();
         }
 
         public override void Load()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Unload()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
