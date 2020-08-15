@@ -1,7 +1,14 @@
 ﻿using Essentials.Commands;
+using Essentials.Commands.Implementations;
+
+using Frostspark.API;
+
+using Microsoft.Xna.Framework;
 
 using System;
 using System.Runtime.CompilerServices;
+
+using Terraria;
 
 namespace Essentials
 {
@@ -9,12 +16,12 @@ namespace Essentials
     {
         internal static EssentialsPlugin Instance { get; private set; }
 
+        internal CommandManager Commands { get; private set; }
+
         public EssentialsPlugin()
         {
             Instance = this;
         }
-
-        internal Frostspark.Server.Server NServer => (Frostspark.Server.Server)Server;
 
         public override string Name => "Essentials";
 
@@ -22,22 +29,24 @@ namespace Essentials
 
         public override void Disable()
         {
-            NServer.Commands.DeregisterCommand<WhoCommand>();
+            Commands.DeregisterCommands();
         }
 
         public override void Enable()
         {
-            NServer.Commands.RegisterCommand<WhoCommand>();
+            Commands.RegisterCommands();
         }
 
         public override void Load()
         {
-            
+            Commands = new CommandManager(this);
         }
 
         public override void Unload()
         {
-            
+            Commands = null;
         }
+
+        internal static Frostspark.Server.Server Server => (Frostspark.Server.Server)Frostspark.API.Frostspark.Server;
     }
 }

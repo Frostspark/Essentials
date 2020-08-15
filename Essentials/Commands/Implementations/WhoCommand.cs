@@ -1,4 +1,5 @@
-﻿using Frostspark.API;
+﻿
+using Frostspark.API;
 using Frostspark.API.Utilities;
 using Frostspark.API.Utilities.Extensions;
 using Frostspark.Server.Commands.Attributes;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Essentials.Commands
+namespace Essentials.Commands.Implementations
 {
     [CommandName("who", "online")]
     [CommandDescription("Lists players connected to the server.")]
@@ -22,14 +23,16 @@ namespace Essentials.Commands
         [CommandCallback]
         public void ShowOnlinePlayers()
         {
-            var srv = EssentialsPlugin.Instance.NServer;
+            var srv = EssentialsPlugin.Server;
 
             var players = srv.Players.Search(x => true);
 
-            Sender.SendFormattedMessage($"There are {players.Count} players currently online:", Color.Yellow);
+            var infocol = srv.Colors.Info;
+
+            Sender.SendFormattedMessage($"There are {players.Count}/{Terraria.Main.maxNetPlayers} players currently online:", infocol);
 
             if (players.Count > 0)
-                Sender.SendFormattedMessage($"{FormattableStringExtensions.Join(", ", players.Select(ply => ColorPlayer(ply)))}", Color.Yellow);
+                Sender.SendFormattedMessage($"{FormattableStringExtensions.Join(", ", players.Select(ply => ColorPlayer(ply)))}", infocol);
         }
 
         private FormattableString ColorPlayer(Player ply)

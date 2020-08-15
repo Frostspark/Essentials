@@ -17,6 +17,13 @@
     <Reference Include="SharedUtils.Generic">
       <HintPath>..\..\..\..\.references\SharedUtils.Generic.dll</HintPath>
     </Reference>
+    <Reference Include="TerrariaServer">
+      <HintPath>..\..\..\..\.references\TerrariaServer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Parsers\" />
   </ItemGroup>
 
 </Project>
