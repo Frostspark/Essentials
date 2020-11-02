@@ -18,13 +18,21 @@ namespace Essentials.Commands.Implementations
         [CommandCallback]
         public void GetRate()
         {
+            var infocol = EssentialsPlugin.Server.Colors.Info;
+            var emph = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
+            Sender.SendFormattedMessage($"The current global spawnrate is {emph}{Terraria.NPC.defaultSpawnRate}{infocol}.", infocol);
         }
 
         [CommandCallback]
         public void SetRate(int rate)
         {
+            var infocol = EssentialsPlugin.Server.Colors.Info;
+            var emph = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
+            Terraria.NPC.defaultSpawnRate = rate;
+
+            Sender.SendFormattedMessage($"The global spawnrate has been updated to {emph}{rate}{infocol}.", infocol);
         }
     }
 }
