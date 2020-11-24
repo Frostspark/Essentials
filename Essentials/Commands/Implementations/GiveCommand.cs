@@ -37,6 +37,8 @@ namespace Essentials.Commands.Implementations
             Sender.SendFormattedMessage($"Gave {emphasis}{player.Name}{infocol} {emphasis}{stack}{infocol} of {emphasis}{item_name}{infocol}.", infocol);
 
             player.SendFormattedMessage($"{emphasis}{Sender.LogName}{infocol} gave you {emphasis}{stack}{infocol} of {emphasis}{item_name}{infocol}", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Gave {player.Name} {stack} of {item_name}.");
         }
     }
 }

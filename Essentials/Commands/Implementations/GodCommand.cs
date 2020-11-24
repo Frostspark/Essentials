@@ -30,6 +30,24 @@ namespace Essentials.Commands.Implementations
             var palered = EssentialsPlugin.Server.Colors.ErrorPale;
 
             Sender.SendFormattedMessage($"Godmode is now {(new_state ? (FormattableString)$"{palegreen}enabled{infocol}" : (FormattableString)$"{palered}disabled{infocol}")}.", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"{(new_state ? "Enabled" : "Disabled")} godmode.");
+        }
+
+        public void ToggleOther(Player ply)
+        {
+            var new_state = ply.Godmode = !ply.Godmode;
+
+            var infocol = EssentialsPlugin.Server.Colors.Info;
+            var palegreen = EssentialsPlugin.Server.Colors.SuccessPale;
+            var palered = EssentialsPlugin.Server.Colors.ErrorPale;
+            var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
+
+            ply.SendFormattedMessage($"{emphasis}{Sender.LogName}{infocol} {(new_state ? (FormattableString)$"{palegreen}enabled{infocol}" : (FormattableString)$"{palered}disabled{infocol}")} godmode on you.", infocol);
+            ply.SendFormattedMessage($"You {(new_state ? (FormattableString)$"{palegreen}enabled{infocol}" : (FormattableString)$"{palered}disabled{infocol}")} godmode for {emphasis}{ply.Name}{infocol}.", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"{(new_state ? "Enabled" : "Disabled")} godmode for {ply.Name}");
+
         }
     }
 }

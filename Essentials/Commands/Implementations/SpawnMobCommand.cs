@@ -77,7 +77,11 @@ namespace Essentials.Commands.Implementations
                 var infocol = EssentialsPlugin.Server.Colors.Info;
                 var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
-                ply.SendFormattedMessage($"Spawned {emphasis}{amount}{infocol} of {emphasis}{Lang.GetNPCNameValue(npc_id)}{infocol}.", infocol);
+                var npc_name = Lang.GetNPCNameValue(npc_id);
+
+                ply.SendFormattedMessage($"Spawned {emphasis}{amount}{infocol} of {emphasis}{npc_name}{infocol}.", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Spawned {amount} of {npc_name}.");
             }
         }
 
@@ -111,6 +115,8 @@ namespace Essentials.Commands.Implementations
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
             player.SendFormattedMessage($"Spawned {emphasis}{amount}{infocol} pair(s) of {emphasis}Twins{infocol}.", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(player, $"Spawned {amount} pairs of Twins.");
         }
 
         private static void SpawnWOF(Frostspark.Server.Entities.Player player, int amount, bool on_self = false)
@@ -127,6 +133,8 @@ namespace Essentials.Commands.Implementations
                 var emph = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
                 player.SendFormattedMessage($"Spawned {emph}Wall of Flesh{infocol}.", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(player, $"Spawned Wall of Flesh.");
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Essentials.Commands
             cmds.RegisterCommand<GiveCommand>();
             cmds.RegisterCommand<ItemCommand>();
             cmds.RegisterCommand<SpawnMobCommand>();
-            cmds.RegisterCommand<SpawnrateCommand>();
+            cmds.RegisterCommand<SpawningCommand>();
             cmds.RegisterCommand<TeleportCommand>();
             cmds.RegisterCommand<WhoCommand>();
             cmds.RegisterCommand<RespawnCommand>();
@@ -36,7 +36,7 @@ namespace Essentials.Commands
             cmds.DeregisterCommand<GiveCommand>();
             cmds.DeregisterCommand<ItemCommand>();
             cmds.DeregisterCommand<SpawnMobCommand>();
-            cmds.DeregisterCommand<SpawnrateCommand>();
+            cmds.DeregisterCommand<SpawningCommand>();
             cmds.DeregisterCommand<TeleportCommand>();
             cmds.DeregisterCommand<WhoCommand>();
             cmds.DeregisterCommand<RespawnCommand>();

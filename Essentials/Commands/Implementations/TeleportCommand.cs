@@ -34,6 +34,8 @@ namespace Essentials.Commands.Implementations
                 var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
                 Sender.SendFormattedMessage($"You have been teleported to {emphasis}{target.Name}{infocol}.", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Teleported to {target.Name}.");
             }
 
             [CommandCallback]
@@ -47,6 +49,8 @@ namespace Essentials.Commands.Implementations
                 Sender.SendFormattedMessage($"You teleported {emphasis}{teleportee.Name}{infocol} to {emphasis}{destination.Name}{infocol}.", infocol);
 
                 teleportee.SendFormattedMessage($"You were teleported to {emphasis}{destination.Name}{infocol} by {emphasis}{Sender.LogName}{infocol}.", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Teleported {teleportee.Name} to {destination.Name}.");
             }
         }
 
@@ -65,6 +69,8 @@ namespace Essentials.Commands.Implementations
                 var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
                 Sender.SendFormattedMessage($"You have been teleported to {emphasis}{x}, {y}{infocol}.", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Teleported to {x}, {y}.");
             }
 
             public void PlayerToPos(Player player, int x, int y)
@@ -76,6 +82,8 @@ namespace Essentials.Commands.Implementations
 
                 player.SendFormattedMessage($"You have been teleported to {emphasis}{x}, {y}{infocol} by {emphasis}{Sender.LogName}{infocol}.", infocol);
                 Sender.SendFormattedMessage($"You teleported {emphasis}{player.Name}{infocol} to {emphasis}{x}, {y}{infocol}", infocol);
+
+                EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Teleported {player.Name} to {x}, {y}.");
             }
         }
     }

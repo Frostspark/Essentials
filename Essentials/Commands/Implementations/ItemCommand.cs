@@ -32,7 +32,11 @@ namespace Essentials.Commands.Implementations
             var infocol = EssentialsPlugin.Server.Colors.Info;
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
-            Sender.SendFormattedMessage($"Spawned {emphasis}{stack}{infocol} of {emphasis}{Lang.GetItemNameValue(item_id)}{infocol}.", infocol);
+            string item_name = Lang.GetItemNameValue(item_id);
+
+            Sender.SendFormattedMessage($"Spawned {emphasis}{stack}{infocol} of {emphasis}{item_name}{infocol}.", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Gave self {stack} of {item_name}.");
         }
     }
 }
