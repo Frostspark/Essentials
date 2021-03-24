@@ -27,6 +27,7 @@ namespace Essentials.Commands
             cmds.RegisterCommand<WhoCommand>();
             cmds.RegisterCommand<RespawnCommand>();
             cmds.RegisterCommand<GodCommand>();
+            cmds.RegisterCommand<WorldCommand>();
         }
 
         public void DeregisterCommands()
@@ -41,6 +42,7 @@ namespace Essentials.Commands
             cmds.DeregisterCommand<WhoCommand>();
             cmds.DeregisterCommand<RespawnCommand>();
             cmds.DeregisterCommand<GodCommand>();
+            cmds.DeregisterCommand<WorldCommand>();
         }
 
     }

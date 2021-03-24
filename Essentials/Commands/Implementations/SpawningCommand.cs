@@ -42,7 +42,8 @@ namespace Essentials.Commands.Implementations
             }
         }
 
-        [SubCommand("essentials.commands.spawning.max")]
+        [SubCommand("max")]
+        [CommandPermission("essentials.commands.spawning.max")]
         public class SpawningMaxCommand : CommandWrapper<CommandSender>
         {
             [CommandCallback]
