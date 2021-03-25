@@ -101,8 +101,8 @@ namespace Essentials.Commands.Implementations
                 }
                 else
                 {
-                    int plyx = (int)player.Position.X;
-                    int plyy = (int)player.Position.Y;
+                    int plyx = (int)player.Position.X / 16;
+                    int plyy = (int)player.Position.Y / 16;
 
                     (int x, int y) = TileUtils.GetRandomClearTile(plyx, plyy, 100, 50);
                     Terraria.NPC.NewNPC(x, y, 125);
