@@ -85,7 +85,7 @@ namespace Essentials.Commands.Implementations
 
                 var value = Server.World.Hardmode;
 
-                Sender.SendFormattedMessage($"Hardmode is {(value ? $"{colors.Success}enabled " : $"{colors.Error}disabled")}{colors.Info}.", colors.Info);
+                Sender.SendFormattedMessage($"Hardmode is {(value ? (FormattableString)$"{colors.Success}enabled" : (FormattableString)$"{colors.Error}disabled")}{colors.Info}.", colors.Info);
             }
 
             [CommandCallback]
@@ -95,7 +95,7 @@ namespace Essentials.Commands.Implementations
 
                 Server.World.Hardmode = state;
 
-                Sender.SendFormattedMessage($"Hardmode has been {(state ? $"{colors.Success}enabled " : $"{colors.Error}disabled")}{colors.Info}.", colors.Info);
+                Sender.SendFormattedMessage($"Hardmode has been {(state ? (FormattableString)$"{colors.Success}enabled" : (FormattableString)$"{colors.Error}disabled")}{colors.Info}.", colors.Info);
             }
         }
     }
