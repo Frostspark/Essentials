@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 using Terraria;
 
@@ -27,24 +28,32 @@ namespace Essentials
 
         public override string Author => "quake1337";
 
-        public override void Disable()
+        public override Task Disable()
         {
             Commands.DeregisterCommands();
+
+            return Task.CompletedTask;
         }
 
-        public override void Enable()
+        public override Task Enable()
         {
             Commands.RegisterCommands();
+
+            return Task.CompletedTask;
         }
 
-        public override void Load()
+        public override Task Load()
         {
             Commands = new CommandManager(this);
+
+            return Task.CompletedTask;
         }
 
-        public override void Unload()
+        public override Task Unload()
         {
             Commands = null;
+
+            return Task.CompletedTask;
         }
 
         internal static Frostspark.Server.Server Server => (Frostspark.Server.Server)Frostspark.API.Frostspark.Server;
