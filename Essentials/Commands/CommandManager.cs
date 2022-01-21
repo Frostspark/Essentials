@@ -21,17 +21,18 @@ namespace Essentials.Commands
             var cmds = EssentialsPlugin.Server.Commands;
 
             cmds.RegisterCommand<GiveCommand>();
-            cmds.RegisterCommand<ItemCommand>();
-            cmds.RegisterCommand<SpawnMobCommand>();
-            cmds.RegisterCommand<SpawningCommand>();
-            cmds.RegisterCommand<TeleportCommand>();
-            cmds.RegisterCommand<WhoCommand>();
-            cmds.RegisterCommand<RespawnCommand>();
             cmds.RegisterCommand<GodCommand>();
-            cmds.RegisterCommand<WorldCommand>();
+            cmds.RegisterCommand<ItemCommand>();
+            cmds.RegisterCommand<RespawnCommand>();
+            cmds.RegisterCommand<SpawningCommand>();
+            cmds.RegisterCommand<SpawnMobCommand>();
+            cmds.RegisterCommand<TeleportCommand>();
             cmds.RegisterCommand<WhitelistCommand>();
-
+            cmds.RegisterCommand<WhoCommand>();
+            cmds.RegisterCommand<WorldCommand>();
+            
             cmds.RegisterParser<IPAddressParser>();
+            cmds.RegisterParser<WeatherTypeParser>();
         }
 
         public void DeregisterCommands()
@@ -39,17 +40,18 @@ namespace Essentials.Commands
             var cmds = EssentialsPlugin.Server.Commands;
 
             cmds.DeregisterCommand<GiveCommand>();
+            cmds.DeregisterCommand<GodCommand>();
             cmds.DeregisterCommand<ItemCommand>();
+            cmds.DeregisterCommand<RespawnCommand>();
             cmds.DeregisterCommand<SpawnMobCommand>();
             cmds.DeregisterCommand<SpawningCommand>();
             cmds.DeregisterCommand<TeleportCommand>();
-            cmds.DeregisterCommand<WhoCommand>();
-            cmds.DeregisterCommand<RespawnCommand>();
-            cmds.DeregisterCommand<GodCommand>();
-            cmds.DeregisterCommand<WorldCommand>();
             cmds.DeregisterCommand<WhitelistCommand>();
+            cmds.DeregisterCommand<WhoCommand>();
+            cmds.DeregisterCommand<WorldCommand>();
 
             cmds.DeregisterParser<IPAddressParser>();
+            cmds.DeregisterParser<WeatherTypeParser>();
         }
 
     }

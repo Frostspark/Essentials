@@ -1,4 +1,6 @@
-﻿using Frostspark.API.Enums;
+﻿using Essentials.Enums;
+
+using Frostspark.API.Enums;
 using Frostspark.Server;
 using Frostspark.Server.Commands.Attributes;
 using Frostspark.Server.Entities;
@@ -11,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using Main = Terraria.Main;
 
 namespace Essentials.Commands.Implementations
 {
@@ -96,6 +100,150 @@ namespace Essentials.Commands.Implementations
                 Server.World.Hardmode = state;
 
                 Sender.SendFormattedMessage($"Hardmode has been {(state ? (FormattableString)$"{colors.Success}enabled" : (FormattableString)$"{colors.Error}disabled")}{colors.Info}.", colors.Info);
+            }
+        }
+
+        [SubCommand("weather")]
+        [CommandPermission("essentials.commands.world.weather")]
+        public class WorldWeatherCommand : CommandWrapper<CommandSender>
+        {
+            /// * GAMEINFO:: 1.4.3.2
+            /// * Weather types:
+            /// * - LightRain = Strength > 0, < 0.2
+            /// * - Rain = Strength >= 0.2, < 0.6
+            /// * - Heavy Rain = Strength >= 0.6
+            /// * - Storming = Main.IsItStorming (high wind in either direction + clouds over _minRain)
+
+            private Dictionary<WeatherType, Action> WeatherActors = new();
+
+            public WorldWeatherCommand()
+            {
+                WeatherActors.Add(WeatherType.Sunny, SetSunny);
+                WeatherActors.Add(WeatherType.LightRain, SetLightRain);
+                WeatherActors.Add(WeatherType.Rain, SetRain);
+                WeatherActors.Add(WeatherType.HeavyRain, SetHeavyRain);
+                WeatherActors.Add(WeatherType.Storm, SetStorm);
+                WeatherActors.Add(WeatherType.SlimeRain, SetSlimeRain);
+            }
+
+            [CommandCallback]
+            public void SetWeatherType(WeatherType type)
+            {
+                if (WeatherActors.TryGetValue(type, out var act))
+                {
+                    act();
+
+                    Terraria.NetMessage.SendData(7);
+
+                    var col = Server.Instance.Colors;
+
+                    Sender.SendFormattedMessage($"The world weather has been updated to {col.TargetEmphasis}{type}{col.Info}.", col.Info);
+
+                    Server.Instance.Commands.LogCommandActivity(Sender, $"Changed world weather to {type}");
+                }
+            }
+
+            private void SetSunny()
+            {
+                ClearEvents();
+
+                Main.rainTime = 0;
+                Main.raining = false;
+                Main.maxRaining = 0.0f;
+                Main.numClouds = 0;
+                Main.cloudBGActive = 0.0f;
+            }
+
+            private void SetRain()
+            {
+                ClearEvents();
+
+                Main.rainTime = 3600;
+                Main.raining = true;
+                Main.maxRaining = 0.5f;
+                Main.numClouds = 100;
+                Main.cloudBGActive = 0.4f;
+            }
+
+            private void SetHeavyRain()
+            {
+                ClearEvents();
+
+                Main.rainTime = 3600;
+                Main.raining = true;
+                Main.maxRaining = 1.0f;
+                Main.numClouds = 200;
+                Main.cloudBGActive = 1.3f;
+            }
+
+            private void SetLightRain()
+            {
+                ClearEvents();
+
+                Main.rainTime = 3600;
+                Main.raining = true;
+                Main.maxRaining = 0.19f;
+                Main.numClouds = 50;
+                Main.cloudBGActive = 0.4f;
+            }
+
+            private void SetStorm()
+            {
+                ClearEvents();
+
+                Main.cloudAlpha = Main._maxRain * 1.15f;
+
+                if (Main.windSpeedTarget < 0)
+                    Main.windSpeedTarget = -(Main._maxWind * 1.15f);
+                else
+                    Main.windSpeedTarget = (Main._maxWind * 1.15f);
+
+                Main.rainTime = 3600;
+                Main.raining = true;
+                Main.maxRaining = 0.5f;
+                Main.numClouds = 0;
+                Main.cloudBGActive = 1f;
+            }
+
+            private void SetSlimeRain()
+            {
+                ClearEvents();
+
+                Main.StartSlimeRain(false);
+            }
+
+            private void ClearEvents()
+            {
+                if (Main.slimeRain)
+                    Main.StopSlimeRain(false);
+
+                if (Main.raining)
+                    Main.StopRain();
+
+                if (Main.windSpeedTarget >= Main._maxWind)
+                    Main.windSpeedTarget = Main._maxWind * 0.5f;
+
+                if (Main.windSpeedTarget <= -Main._maxWind)
+                    Main.windSpeedTarget = -(Main._maxWind * 0.5f);
+            }
+        }
+
+        [SubCommand("wind")]
+        [CommandPermission("essentials.commands.world.wind")]
+        public class WorldWindCommand : CommandWrapper<CommandSender>
+        {
+            [CommandCallback]
+            public void Set(float value)
+            {
+                Main.windSpeedTarget = value;
+
+                var col = Server.Instance.Colors;
+
+                Sender.SendFormattedMessage($"The wind strength has been updated to {col.TargetEmphasis}{value}{col.Info}.", col.Info);
+
+                Server.Instance.Commands.LogCommandActivity(Sender, $"Changed wind strength to {value}");
+
+                Terraria.NetMessage.SendData(7);
             }
         }
     }
