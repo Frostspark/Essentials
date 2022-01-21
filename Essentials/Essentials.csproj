@@ -14,16 +14,15 @@
     <Reference Include="SharedUtils.Commands">
       <HintPath>..\..\..\..\.references\SharedUtils.Commands.dll</HintPath>
     </Reference>
+    <Reference Include="SharedUtils.Configuration">
+      <HintPath>..\..\..\..\.references\SharedUtils.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="SharedUtils.Generic">
       <HintPath>..\..\..\..\.references\SharedUtils.Generic.dll</HintPath>
     </Reference>
     <Reference Include="TerrariaServer">
       <HintPath>..\..\..\..\.references\TerrariaServer.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\Parsers\" />
   </ItemGroup>
 
 </Project>

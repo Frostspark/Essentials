@@ -1,13 +1,10 @@
 ﻿using Essentials.Utilities;
 
-using Frostspark.API.Utilities;
 using Frostspark.API.Worlds.Time;
-using Frostspark.Server;
 using Frostspark.Server.Commands.Assertions;
 using Frostspark.Server.Commands.Attributes;
 using Frostspark.Server.Commands.Parsers;
 using Frostspark.Server.Entities;
-using Frostspark.Server.Utilities;
 using Frostspark.Server.Utilities.Extensions;
 
 using SharedUtils.Commands.Attributes;
@@ -15,7 +12,6 @@ using SharedUtils.Commands.Commands;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Terraria;
 using Terraria.ID;
@@ -45,7 +41,7 @@ namespace Essentials.Commands.Implementations
         };
 
         [CommandCallback]
-        public void Spawn( [NPCID(aliases: true)] int npc_id, int amount = 1, bool on_self = false)
+        public void Spawn([NPCID(aliases: true)] int npc_id, int amount = 1, bool on_self = false)
         {
             if (!EntityAssertions.Assert_SenderPlayer(Sender, out var ply))
                 return;
@@ -55,15 +51,15 @@ namespace Essentials.Commands.Implementations
             if (PreSpawnActions.TryGetValue(npc_id, out var pre_deleg))
                 pre_deleg();
 
-            if(SpecialBindings.TryGetValue(npc_id, out var deleg))
+            if (SpecialBindings.TryGetValue(npc_id, out var deleg))
             {
                 deleg(ply, amount, on_self);
             }
             else
             {
-                for(int i = 0; i < amount; i++)
+                for (int i = 0; i < amount; i++)
                 {
-                    if(on_self)
+                    if (on_self)
                     {
                         Terraria.NPC.NewNPC((int)ply.Position.X, (int)ply.Position.Y, npc_id);
                     }
@@ -92,9 +88,9 @@ namespace Essentials.Commands.Implementations
 
         private static void SpawnTwins(Frostspark.Server.Entities.Player player, int amount, bool on_self = false)
         {
-            for(int i = 0; i < amount; i++)
+            for (int i = 0; i < amount; i++)
             {
-                if(on_self)
+                if (on_self)
                 {
                     Terraria.NPC.NewNPC((int)player.Position.X, (int)player.Position.Y, 125);
                     Terraria.NPC.NewNPC((int)player.Position.X, (int)player.Position.Y, 126);

@@ -17,6 +17,7 @@ namespace Essentials.Commands.Implementations
 {
     [CommandName("tp", "teleport")]
     [CommandDescription("Teleports an entity to a given location")]
+    [CommandPermission("essentials.commands.teleport")]
     public class TeleportCommand : CommandWrapper<CommandSender>
     {
         [SubCommand("player", "ply")]

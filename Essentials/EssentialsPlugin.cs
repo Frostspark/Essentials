@@ -1,5 +1,7 @@
 ﻿using Essentials.Commands;
 using Essentials.Commands.Implementations;
+using Essentials.Events;
+using Essentials.Whitelisting;
 
 using Frostspark.API;
 
@@ -19,6 +21,10 @@ namespace Essentials
 
         internal CommandManager Commands { get; private set; }
 
+        internal EventHandlerManager Events { get; private set; }
+
+        internal Whitelist Whitelist { get; private set; }
+
         public EssentialsPlugin()
         {
             Instance = this;
@@ -28,23 +34,25 @@ namespace Essentials
 
         public override string Author => "quake1337";
 
-        public override Task Disable()
+        public override async Task Disable()
         {
+            Events.Unregister();
             Commands.DeregisterCommands();
-
-            return Task.CompletedTask;
+            await Whitelist.SaveFile();
         }
 
-        public override Task Enable()
+        public override async Task Enable()
         {
+            Events.Register();
             Commands.RegisterCommands();
-
-            return Task.CompletedTask;
+            await Whitelist.LoadFile();
         }
 
         public override Task Load()
         {
             Commands = new CommandManager(this);
+            Events = new(this);
+            Whitelist = new(this);
 
             return Task.CompletedTask;
         }
@@ -52,6 +60,8 @@ namespace Essentials
         public override Task Unload()
         {
             Commands = null;
+            Events = null;
+            Whitelist = null;
 
             return Task.CompletedTask;
         }

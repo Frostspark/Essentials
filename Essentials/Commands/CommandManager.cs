@@ -1,4 +1,5 @@
 ﻿using Essentials.Commands.Implementations;
+using Essentials.Commands.Parsers;
 
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,9 @@ namespace Essentials.Commands
             cmds.RegisterCommand<RespawnCommand>();
             cmds.RegisterCommand<GodCommand>();
             cmds.RegisterCommand<WorldCommand>();
+            cmds.RegisterCommand<WhitelistCommand>();
+
+            cmds.RegisterParser<IPAddressParser>();
         }
 
         public void DeregisterCommands()
@@ -43,6 +47,9 @@ namespace Essentials.Commands
             cmds.DeregisterCommand<RespawnCommand>();
             cmds.DeregisterCommand<GodCommand>();
             cmds.DeregisterCommand<WorldCommand>();
+            cmds.DeregisterCommand<WhitelistCommand>();
+
+            cmds.DeregisterParser<IPAddressParser>();
         }
 
     }
