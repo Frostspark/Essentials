@@ -6,6 +6,7 @@ using Frostspark.Server.Entities;
 using Microsoft.Xna.Framework;
 
 using SharedUtils.Commands.Attributes;
+using SharedUtils.Commands.Attributes.Overrides;
 using SharedUtils.Commands.Commands;
 
 using System;
@@ -28,6 +29,29 @@ namespace Essentials.Commands.Implementations
                 return;
 
             Terraria.Item.NewItem(ply.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
+
+            var infocol = EssentialsPlugin.Server.Colors.Info;
+            var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
+
+            string item_name = Lang.GetItemNameValue(item_id);
+
+            Sender.SendFormattedMessage($"Spawned {emphasis}{stack}{infocol} of {emphasis}{item_name}{infocol}.", infocol);
+
+            EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"Gave self {stack} of {item_name}.");
+        }
+
+        [CommandCallback]
+        public void SpawnItem([ItemID(multiword: true)] int item_id)
+        {
+            if (!EntityAssertions.Assert_SenderPlayer(Sender, out var ply))
+                return;
+
+            Terraria.Item item = new();
+            item.SetDefaults(item_id);
+
+            int stack = item.maxStack;
+
+            Terraria.Item.NewItem(ply.Handle.position, Vector2.Zero, item_id, stack, false, 0, true, false);
 
             var infocol = EssentialsPlugin.Server.Colors.Info;
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;

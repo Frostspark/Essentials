@@ -1,6 +1,7 @@
 ﻿using Essentials.Enums;
 
 using Frostspark.API.Enums;
+using Frostspark.API.Worlds.Time;
 using Frostspark.Server;
 using Frostspark.Server.Commands.Attributes;
 using Frostspark.Server.Entities;
@@ -100,6 +101,29 @@ namespace Essentials.Commands.Implementations
                 Server.World.Hardmode = state;
 
                 Sender.SendFormattedMessage($"Hardmode has been {(state ? (FormattableString)$"{colors.Success}enabled" : (FormattableString)$"{colors.Error}disabled")}{colors.Info}.", colors.Info);
+            }
+        }
+
+        [SubCommand("time")]
+        [CommandPermission("essentials.commands.world.time")]
+        public class WorldTimeCommand : CommandWrapper<CommandSender>
+        {
+            [CommandCallback]
+            [SubCommand("get")]
+            public void CheckTime()
+            {
+                var curr_time = Server.World.Time;
+
+                Sender.SendInfoMessage($"The current world time is {curr_time.Hour:00}:{curr_time.Minute:00}.");
+            }
+
+            [CommandCallback]
+            [SubCommand("set")]
+            public void Set(WorldTime time)
+            {
+                Server.World.Time = time;
+
+                Sender.SendInfoMessage($"The world time was set to {time.Hour:00}:{time.Minute:00}.");
             }
         }
 
