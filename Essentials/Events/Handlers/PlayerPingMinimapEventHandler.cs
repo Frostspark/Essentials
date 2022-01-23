@@ -17,7 +17,7 @@ namespace Essentials.Events.Handlers
             if (obj.Player.HasPermission("essentials.maptp"))
             {
                 obj.Cancelled = true;
-                obj.Player.TeleportToPos(obj.Position.X, obj.Position.Y, new() { Type = TeleportEffectType.MagicMirrorTeleport });
+                obj.Player.TeleportToTile(obj.Position.X, obj.Position.Y, new() { Type = TeleportEffectType.MagicMirrorTeleport });
             }
         }
     }
