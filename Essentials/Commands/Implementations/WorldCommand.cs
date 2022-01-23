@@ -114,7 +114,7 @@ namespace Essentials.Commands.Implementations
             /// * - Heavy Rain = Strength >= 0.6
             /// * - Storming = Main.IsItStorming (high wind in either direction + clouds over _minRain)
 
-            private Dictionary<WeatherType, Action> WeatherActors = new();
+            private readonly Dictionary<WeatherType, Action> WeatherActors = new();
 
             public WorldWeatherCommand()
             {
@@ -212,7 +212,7 @@ namespace Essentials.Commands.Implementations
                 Main.StartSlimeRain(false);
             }
 
-            private void ClearEvents()
+            private static void ClearEvents()
             {
                 if (Main.slimeRain)
                     Main.StopSlimeRain(false);
