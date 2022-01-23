@@ -15,6 +15,7 @@ namespace Essentials.Events
         private readonly EssentialsPlugin Plugin;
         private readonly PlayerConnectEventHandler ConnectHandler = new();
         private readonly PlayerDifficultyMismatchEventHandler DifficultyMismatchHandler = new();
+        private readonly PlayerPingMinimapEventHandler PingMinimapHandler = new();
 
         public EventHandlerManager(EssentialsPlugin plugin) => Plugin = plugin;
 
@@ -22,12 +23,14 @@ namespace Essentials.Events
         {
             Server.Instance.Events.RegisterHandler(Plugin, ConnectHandler);
             Server.Instance.Events.RegisterHandler(Plugin, DifficultyMismatchHandler);
+            Server.Instance.Events.RegisterHandler(Plugin, PingMinimapHandler);
         }
 
         internal void Unregister()
         {
             Server.Instance.Events.UnregisterHandler(Plugin, ConnectHandler);
             Server.Instance.Events.UnregisterHandler(Plugin, DifficultyMismatchHandler);
+            Server.Instance.Events.UnregisterHandler(Plugin, PingMinimapHandler);
         }
     }
 }
