@@ -14,8 +14,11 @@ namespace Essentials.Events.Handlers
     {
         public override void Handle(PlayerPingMinimapEvent obj)
         {
-            obj.Cancelled = true;
-            obj.Player.TeleportToPos(obj.Position.X, obj.Position.Y, new() { Type = TeleportEffectType.MagicMirrorTeleport });
+            if (obj.Player.HasPermission("essentials.maptp"))
+            {
+                obj.Cancelled = true;
+                obj.Player.TeleportToPos(obj.Position.X, obj.Position.Y, new() { Type = TeleportEffectType.MagicMirrorTeleport });
+            }
         }
     }
 }
