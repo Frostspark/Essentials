@@ -38,7 +38,7 @@ namespace Essentials.Whitelisting
 
             if (wf == null)
             {
-                Plugin.Log.LogError("Failed to load whitelist file.");
+                Plugin.Log.LogError("Whitelist", "Failed to load whitelist file.");
             }
 
             Enabled = wf.Status;
@@ -55,7 +55,7 @@ namespace Essentials.Whitelisting
 
             if (!await ConfigManager.SaveConfigAsync(wf, path))
             {
-                Plugin.Log.LogError("Failed to save whitelist file.");
+                Plugin.Log.LogError("Whitelist", "Failed to save whitelist file.");
             }
         }
     }
