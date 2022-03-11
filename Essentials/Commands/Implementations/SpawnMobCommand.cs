@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace Essentials.Commands.Implementations
@@ -61,12 +62,12 @@ namespace Essentials.Commands.Implementations
                 {
                     if (on_self)
                     {
-                        Terraria.NPC.NewNPC((int)ply.Position.X, (int)ply.Position.Y, npc_id);
+                        Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)ply.Position.X, (int)ply.Position.Y, npc_id);
                     }
                     else
                     {
                         (int x, int y) = TileUtils.GetRandomClearTile((int)ply.Position.X / 16, (int)ply.Position.Y / 16, 100, 50);
-                        Terraria.NPC.NewNPC(x * 16, y * 16, npc_id);
+                        Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), x * 16, y * 16, npc_id);
                     }
                 }
 
@@ -92,8 +93,8 @@ namespace Essentials.Commands.Implementations
             {
                 if (on_self)
                 {
-                    Terraria.NPC.NewNPC((int)player.Position.X, (int)player.Position.Y, 125);
-                    Terraria.NPC.NewNPC((int)player.Position.X, (int)player.Position.Y, 126);
+                    Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)player.Position.X, (int)player.Position.Y, 125);
+                    Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)player.Position.X, (int)player.Position.Y, 126);
                 }
                 else
                 {
@@ -101,9 +102,9 @@ namespace Essentials.Commands.Implementations
                     int plyy = (int)player.Position.Y / 16;
 
                     (int x, int y) = TileUtils.GetRandomClearTile(plyx, plyy, 100, 50);
-                    Terraria.NPC.NewNPC(x * 16, y * 16, 125);
+                    Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), x * 16, y * 16, 125);
                     (x, y) = TileUtils.GetRandomClearTile(plyx, plyy, 100, 50);
-                    Terraria.NPC.NewNPC(x * 16, y * 16, 126);
+                    Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), x * 16, y * 16, 126);
                 }
             }
 

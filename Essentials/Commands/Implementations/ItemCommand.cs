@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using Terraria;
+using Terraria.DataStructures;
 
 namespace Essentials.Commands.Implementations
 {
@@ -28,7 +29,7 @@ namespace Essentials.Commands.Implementations
             if (!EntityAssertions.Assert_SenderPlayer(Sender, out var ply))
                 return;
 
-            Terraria.Item.NewItem(ply.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
+            Terraria.Item.NewItem(new EntitySource_DebugCommand(), ply.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
 
             var infocol = EssentialsPlugin.Server.Colors.Info;
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
@@ -51,7 +52,7 @@ namespace Essentials.Commands.Implementations
 
             int stack = item.maxStack;
 
-            Terraria.Item.NewItem(ply.Handle.position, Vector2.Zero, item_id, stack, false, 0, true, false);
+            Terraria.Item.NewItem(new EntitySource_DebugCommand(), ply.Handle.position, Vector2.Zero, item_id, stack, false, 0, true, false);
 
             var infocol = EssentialsPlugin.Server.Colors.Info;
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;

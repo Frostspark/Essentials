@@ -27,7 +27,7 @@ namespace Essentials.Commands.Implementations
         [CommandCallback]
         public void SpawnItem(Player player, [ItemID] int item_id, int stack = 1, byte prefix = 0)
         {
-            Terraria.Item.NewItem(player.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
+            Terraria.Item.NewItem(new EntitySource_DebugCommand(), player.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
 
             var infocol = EssentialsPlugin.Server.Colors.Info;
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
