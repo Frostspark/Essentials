@@ -62,12 +62,12 @@ namespace Essentials.Commands.Implementations
 
                 if (page > 1)
                 {
-                    Sender.SendFormattedMessage($"> Use {Color.IndianRed}/help {Color.LightGray}commands {page - 1}{col.Info} for the previous page.", col.Info);
+                    Sender.SendFormattedMessage($"> Use {Color.IndianRed}/whitelist {Color.LightGray}list {page - 1}{col.Info} for the previous page.", col.Info);
                 }
 
                 if (page < maxpage)
                 {
-                    Sender.SendFormattedMessage($"> Use {Color.IndianRed}/help {Color.LightGray}commands {page + 1}{col.Info} for the next page.", col.Info);
+                    Sender.SendFormattedMessage($"> Use {Color.IndianRed}/whitelist {Color.LightGray}list {page + 1}{col.Info} for the next page.", col.Info);
                 }
             }
         }
