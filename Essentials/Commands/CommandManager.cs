@@ -20,6 +20,7 @@ namespace Essentials.Commands
         {
             var cmds = EssentialsPlugin.Server.Commands;
 
+            cmds.RegisterCommand<FindCommand>();
             cmds.RegisterCommand<GiveCommand>();
             cmds.RegisterCommand<GodCommand>();
             cmds.RegisterCommand<ItemCommand>();
@@ -33,12 +34,14 @@ namespace Essentials.Commands
             
             cmds.RegisterParser<IPAddressParser>();
             cmds.RegisterParser<WeatherTypeParser>();
+            cmds.RegisterParser<SearchTypeParser>();
         }
 
         public void DeregisterCommands()
         {
             var cmds = EssentialsPlugin.Server.Commands;
 
+            cmds.DeregisterCommand<FindCommand>();
             cmds.DeregisterCommand<GiveCommand>();
             cmds.DeregisterCommand<GodCommand>();
             cmds.DeregisterCommand<ItemCommand>();
@@ -52,6 +55,7 @@ namespace Essentials.Commands
 
             cmds.DeregisterParser<IPAddressParser>();
             cmds.DeregisterParser<WeatherTypeParser>();
+            cmds.DeregisterParser<SearchTypeParser>();
         }
 
     }
