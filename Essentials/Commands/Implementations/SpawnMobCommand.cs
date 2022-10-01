@@ -116,6 +116,59 @@ namespace Essentials.Commands.Implementations
             EssentialsPlugin.Server.Commands.LogCommandActivity(player, $"Spawned {amount} pairs of Twins.");
         }
 
+        private static void SpawnMechdusa(Frostspark.Server.Entities.Player player, int amount, bool on_self = false)
+        {
+            if (Terraria.NPC.IsMechQueenUp)
+            {
+                player.SendErrorMessage($"Mech Queen cannot be currently spawned as one is already active.");
+            }
+            else
+            {
+                int skeletron = -1;
+
+                if (on_self)
+                {
+                    skeletron = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)player.Position.X, (int)player.Position.Y, NPCID.SkeletronPrime);
+                }
+                else
+                {
+                    int plyx = (int)player.Position.X / 16;
+                    int plyy = (int)player.Position.Y / 16;
+
+                    (int x, int y) = TileUtils.GetRandomClearTile(plyx, plyy, 100, 50);
+                    skeletron = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), x * 16, y * 16, NPCID.SkeletronPrime, 0, 0, 0, 0, 99999f);
+                }
+
+                if (skeletron is 200)
+                {
+                    player.SendErrorMessage($"Mechdusa spawn aborted: NPC cap reached.");
+                }
+                else
+                {
+                    Main.npc[skeletron].ai[3] = skeletron;
+
+                    var skeletron_pos = Main.npc[skeletron].Center;
+
+                    int retinazer = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)skeletron_pos.X, (int)skeletron_pos.Y, NPCID.Retinazer);
+                    int spazmatism = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)skeletron_pos.X, (int)skeletron_pos.Y, NPCID.Spazmatism);
+                    int destroyer = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)skeletron_pos.X, (int)skeletron_pos.Y, NPCID.TheDestroyer);
+
+                    if (destroyer is not 200)
+                    {
+                        int probe1 = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)skeletron_pos.X, (int)skeletron_pos.Y, NPCID.Probe, 0, 0, 0, destroyer, -1f);
+                        int probe2 = Terraria.NPC.NewNPC(new EntitySource_DebugCommand(), (int)skeletron_pos.X, (int)skeletron_pos.Y, NPCID.Probe, 0, 0, 0, destroyer, 1f);
+                    }
+
+                    var infocol = EssentialsPlugin.Server.Colors.Info;
+                    var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
+
+                    player.SendFormattedMessage($"Spawned {emphasis}Mechdusa{infocol}.", infocol);
+
+                    EssentialsPlugin.Server.Commands.LogCommandActivity(player, $"Spawned Mechdusa.");
+                }
+            }
+        }
+
         private static void SpawnWOF(Frostspark.Server.Entities.Player player, int amount, bool on_self = false)
         {
             if (Main.wofNPCIndex != -1 || player.Position.Y / 16 < (Main.maxTilesY - 205))
