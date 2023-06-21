@@ -34,6 +34,7 @@ namespace Essentials.Commands.Implementations
             EssentialsPlugin.Server.Commands.LogCommandActivity(Sender, $"{(new_state ? "Enabled" : "Disabled")} godmode.");
         }
 
+        [CommandCallback]
         public void ToggleOther(Player ply)
         {
             var new_state = ply.Godmode = !ply.Godmode;

@@ -25,7 +25,6 @@ namespace Essentials.Commands
             cmds.RegisterCommand<GodCommand>();
             cmds.RegisterCommand<ItemCommand>();
             cmds.RegisterCommand<RespawnCommand>();
-            cmds.RegisterCommand<SpawningCommand>();
             cmds.RegisterCommand<SpawnMobCommand>();
             cmds.RegisterCommand<TeleportCommand>();
             cmds.RegisterCommand<WhitelistCommand>();
@@ -47,7 +46,6 @@ namespace Essentials.Commands
             cmds.DeregisterCommand<ItemCommand>();
             cmds.DeregisterCommand<RespawnCommand>();
             cmds.DeregisterCommand<SpawnMobCommand>();
-            cmds.DeregisterCommand<SpawningCommand>();
             cmds.DeregisterCommand<TeleportCommand>();
             cmds.DeregisterCommand<WhitelistCommand>();
             cmds.DeregisterCommand<WhoCommand>();
