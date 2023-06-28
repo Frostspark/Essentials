@@ -90,7 +90,7 @@ namespace Essentials.Commands.Implementations
         {
             var colors = Server.Instance.Colors;
 
-            FindItemProperty(query, page, (i) => true, (p, mp) => $"Item search ({Color.Orange}search \"{Color.OrangeRed}{query}{Color.Orange}\", page {p}/{mp})", (p) => $"{Color.IndianRed}/find {Color.LightGray}wall \"{query}\" {p}", (item) =>
+            FindItemProperty(query, page, (i) => true, (p, mp) => $"Item search ({Color.Orange}search \"{Color.OrangeRed}{query}{Color.Orange}\", page {p}/{mp})", (p) => $"{Color.IndianRed}/find {Color.LightGray}item \"{query}\" {p}", (item) =>
             {
                 Sender.SendFormattedMessage($"Item {item.Name}: {new NetItem() { Type = item.type, Prefix = 0, Stack = 1 }} ({item.type})", colors.Info);
             });

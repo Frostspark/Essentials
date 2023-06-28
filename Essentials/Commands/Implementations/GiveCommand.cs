@@ -25,7 +25,7 @@ namespace Essentials.Commands.Implementations
     public class GiveCommand : CommandWrapper<CommandSender>
     {
         [CommandCallback]
-        public void SpawnItem(Player player, [ItemID] int item_id, int stack = 1, byte prefix = 0)
+        public void SpawnItem(Player player, [ItemID] int item_id, int stack = -1, byte prefix = 0)
         {
             Terraria.Item.NewItem(new EntitySource_DebugCommand(), player.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
 
@@ -33,6 +33,14 @@ namespace Essentials.Commands.Implementations
             var emphasis = EssentialsPlugin.Server.Colors.TargetEmphasis;
 
             string item_name = Lang.GetItemNameValue(item_id);
+
+            Terraria.Item item = new();
+            item.SetDefaults(item_id);
+
+            if (stack is -1)
+            {
+                stack = item.maxStack;
+            }
 
             Sender.SendFormattedMessage($"Gave {emphasis}{player.Name}{infocol} {emphasis}{stack}{infocol} of {emphasis}{item_name}{infocol}.", infocol);
 

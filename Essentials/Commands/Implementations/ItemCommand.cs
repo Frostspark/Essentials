@@ -24,10 +24,18 @@ namespace Essentials.Commands.Implementations
     public class ItemCommand : CommandWrapper<CommandSender>
     {
         [CommandCallback]
-        public void SpawnItem([ItemID] int item_id, int stack = 1, byte prefix = 0)
+        public void SpawnItem([ItemID] int item_id, int stack = -1, byte prefix = 0)
         {
             if (!EntityAssertions.Assert_SenderPlayer(Sender, out var ply))
                 return;
+
+            Terraria.Item item = new();
+            item.SetDefaults(item_id);
+
+            if (stack is -1)
+            {
+                stack = item.maxStack;
+            }
 
             Terraria.Item.NewItem(new EntitySource_DebugCommand(), ply.Handle.position, Vector2.Zero, item_id, stack, false, prefix, true, false);
 
